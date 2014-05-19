@@ -12,14 +12,16 @@
     <div id="singleColumn">
 
         <p id="confirmationText">
-            <strong>Tu orden ha sido procesado y será entregado en un plazo de 24 horas.</strong>
+            <strong>Su orden está siendo procesada.<br> <br>
+               En un plazo máximo de 24 horas recibirá el pedido.</strong>
             <br><br>
-            Tu numero de pedido es:
+            Pedido referencia:
             <strong>[ número de referencia ]</strong>
             <br>
-            Si tienes algunas preguntas en relación a tu pedido, <a href="#">contactanos</a>.
+            Para cualquier aclaración sobre el pedido , <a href="#">contactenos</a> haciendo constar
+            referencia y fecha pedido.
             <br><br>
-            Gracias por comprar en nuestra tienda!
+            <strong>Gracias por comprar en nuestra tienda!</strong>
 
         </p>
 
@@ -30,9 +32,9 @@
                     <th colspan="3">[ detalles de la compra ]</th>
                 </tr>
                 <tr class="tableHeading">
-                    <td>producto</td>
-                    <td>cuantidad</td>
-                    <td>precio</td>
+                    <td>Producto</td>
+                    <td>Cantidad</td>
+                    <td>Precio</td>
                 </tr>
                 <tr class="lightBlue">
                     <td>
@@ -63,16 +65,16 @@
 
                 <tr class="lightBlue">
                     <td colspan="2" id="deliverySurchargeCellLeft">
-                        <strong>Gastos de spedicion:</strong>
+                        <strong>Gastos de envío:</strong>
                     </td>
                     <td id="deliverySurchargeCellRight">
-                        &euro; [gastos de spedicion]
+                        &euro; [gastos de envio]
                     </td>
                 </tr>
 
                 <tr class="lightBlue">
                     <td colspan="2" id="totalCellLeft">
-                        <strong>total:</strong>
+                        <strong>Total:</strong>
                     </td>
                     <td id="totalCellRight">
                         &euro; [total orden]
