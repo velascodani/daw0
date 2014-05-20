@@ -10,28 +10,32 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 
-    <div id="indexLeftColumn">
-        <div id="welcomeText">
-            <p>Bienvenid@ a la tienda ecológica.</p>
-            
-            
-        </div>
+<div id="indexLeftColumn">
+    <div id="welcomeText">
+        <p><h3>Bienvenid@ a la tienda ecológica</h3> <h1>ECOVIDA.</h1></p><br>
+        ECOVIDA es una tienda de productos ecológicos y naturales de cosecha propia.<br><br>
+        Porque somos lo que comemos, te ofrecemos una amplia gama de alimentos ecológicos. <br>
+        Comprueba todos los productos que te traemos y si no encuentras lo que buscas consultanos y nosotros lo haremos por tí. 
+
+
+
     </div>
+</div>
 <%--21/05/14-Sustituimos html fijo por bucle --%>
-    <div id="indexRightColumn">
-        <c:forEach var="categoria" items="${categoriaList}">
-            <div class="categoryBox">
+<div id="indexRightColumn">
+    <c:forEach var="categoria" items="${categoriaList}">
+        <div class="categoryBox">
             <a href="category?categoryId=${categoria.id}">
-                 <span class="categoryLabel">${categoria.id}</span>
+                <span class="categoryLabel">${categoria.id}</span>
                 <span class="categoryLabelText">${categoria.nombre}</span>
                 <img src="${initParam.categoriasImagenesPath}/${categoria.imagen}" alt="${categoria.imagen}">
             </a>
         </div>
-            
-        </c:forEach>
-        
-    </div>
-   
+
+    </c:forEach>
+
+</div>
+
 
 
 
