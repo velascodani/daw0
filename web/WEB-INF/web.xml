@@ -26,12 +26,12 @@
         </session-timeout>
     </session-config>
     <context-param>
-        <param-name>productImagePath</param-name>
-        <param-value>images/products</param-value>
+        <param-name>productosImagePath</param-name>
+        <param-value>images/productos</param-value>
     </context-param>
     <context-param>
-        <param-name>categoryImagePath</param-name>
-        <param-value>images/category</param-value>
+        <param-name>categoriasImagenesPath</param-name>
+        <param-value>images/categorias</param-value>
     </context-param>
     <jsp-config>
         <jsp-property-group>
