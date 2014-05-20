@@ -8,7 +8,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<jsp:include page="header.jsp"></jsp:include>
 
     <div id="indexLeftColumn">
         <div id="welcomeText">
@@ -20,32 +19,31 @@
 
     <div id="indexRightColumn">
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Cat1</span>
             </a>
         </div>
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Cat2</span>
             </a>
         </div>
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Cat3</span>
             </a>
         </div>
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Cat4</span>
             </a>
         </div>
     </div>
-    
-<jsp:include page="footer.jsp"></jsp:include>
+   
 
 
 
