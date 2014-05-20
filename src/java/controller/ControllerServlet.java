@@ -34,7 +34,28 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       
+        // Leer el mapeo en web.xml
+        String userPath = request.getServletPath();
+        
+        // si es "/category" asignar a dirección    
+         if(userPath.equals("/category")){
+            userPath = "category";
+        }
+         
+        // si es "/viewCart" asignar a dirección
+        if(userPath.equals("/viewCart")){
+            userPath = "cart";
+        }
+        
+        // si es "/checkout" asignar a dirección
+        if(userPath.equals("/checkout")){
+            userPath = "checkout";
+        }
+        
+        // Montar el String url con los parametros de arriba
+        String url = "/WEB-INF/view/" + userPath + ".jsp";
+        request.setAttribute("view", url);
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**
@@ -49,7 +70,33 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Leer el mapeo en web.xml
+        String userPath = request.getServletPath();
         
+        // si es "/addToCart" asignar a dirección
+        if(userPath.equals("/addToCart")){
+            userPath = "category";
+        }
+        
+        // si es "/updateCart" asignar a dirección
+        if(userPath.equals("/updateCart")){
+            userPath = "cart";
+        }
+        
+        // si es "/cleanCart" asignar a dirección
+        if(userPath.equals("/cleanCart")){
+            userPath = "cart";
+        }
+        
+        // si es "/purchase" asignar a dirección
+        if(userPath.equals("/purchase")){
+            userPath = "confirmation";
+        }
+        
+        // Montar el String url con los parametros de arriba
+        String url = "/WEB-INF/view/" + userPath + ".jsp";
+        request.setAttribute("view", url);
+        request.getRequestDispatcher(url).forward(request, response);       
         
     }
 
