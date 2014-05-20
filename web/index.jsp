@@ -24,7 +24,7 @@
             <a href="category?categoryId=${categoria.id}">
                  <span class="categoryLabel">${categoria.id}</span>
                 <span class="categoryLabelText">${categoria.nombre}</span>
-                <img src="${initParam.categoriasImagenesPath}/${categoria.imagen}" alt="${categoria.nombre}">
+                <img src="${initParam.categoriasImagenesPath}/${categoria.imagen}" alt="${categoria.imagen}">
             </a>
         </div>
             
