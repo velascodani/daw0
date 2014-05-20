@@ -141,10 +141,10 @@ public class ControllerServlet extends HttpServlet {
         
         ArrayList<Categoria> categoriaTmp = new ArrayList<Categoria>();
         
-        Categoria lacteos = new Categoria( 1, "Lácteos","");
-        Categoria frutas = new Categoria(2,"Frutas","");
-        Categoria verduras = new Categoria(3,"Verduras","");
-        Categoria legumbres = new Categoria(4,"Legumbres","");
+        Categoria lacteos = new Categoria( 1, "Lácteos","lacteos.jpg");
+        Categoria frutas = new Categoria(2,"Frutas","frutas.jpg");
+        Categoria verduras = new Categoria(3,"Verduras","verduras.jpg");
+        Categoria legumbres = new Categoria(4,"Legumbres","legumbres.jpg");
         
         categoriaTmp.add(lacteos);
         categoriaTmp.add(frutas);
