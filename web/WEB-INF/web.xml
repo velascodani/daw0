@@ -14,19 +14,15 @@
         <url-pattern>/addToCart</url-pattern>
         <url-pattern>/viewCart</url-pattern>
         <url-pattern>/updateCart</url-pattern>
+        <url-pattern>/cleanCart</url-pattern>
         <url-pattern>/checkout</url-pattern>
         <url-pattern>/purchase</url-pattern>
-        
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <error-page>
-        <exception-type>java.lang.Throwable</exception-type>
-        <location>/WEB-INF/error.jsp</location>
-    </error-page>
     <context-param>
         <param-name>productImagePath</param-name>
         <param-value>images/products</param-value>
@@ -35,4 +31,15 @@
         <param-name>categoryImagePath</param-name>
         <param-value>images/category</param-value>
     </context-param>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/category.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/checkout.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/confirmation.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/cart.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/header.jsp</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jsp</include-coda>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>
