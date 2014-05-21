@@ -1,4 +1,6 @@
-
+<%@page errorPage="../error.jsp" language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%-- 21/05/14 - El tag error se elimina de todas las JSP y se añade aquí
+--%>
 
 <html>
     <head>
