@@ -4,14 +4,14 @@
     Author     : Administrador
 --%>
 
-<%@page errorPage="WEB-INF/error.jsp" contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
 
     <div id="indexLeftColumn">
         <div id="welcomeText">
-            <p>[ mensaje de bienvenida ]</p>
+            <p>Bienvenid@ a la tienda ecológica.</p>
             
             
         </div>
