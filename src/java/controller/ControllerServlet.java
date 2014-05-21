@@ -136,7 +136,7 @@ public class ControllerServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    //21/05/14- Creamos ArrayList
+    //21/05/14- Creamos ArrayList con categorias
     private ArrayList<Categoria> createCategoriasBeans() {
         
         ArrayList<Categoria> categoriaTmp = new ArrayList<Categoria>();
