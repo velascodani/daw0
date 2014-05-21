@@ -5,7 +5,9 @@
  */
 package controller;
 
+import beans.Categoria;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,14 +20,22 @@ import managers.LoggerManager;
  * @author Administrador
  */
 public class ControllerServlet extends HttpServlet {
-
+    
+    private ArrayList<Categoria> categoriaList;
+    
+        
 // 21/05/14 - Modiﬁcar el ControllerServlet perquè implemenf el mètode init i 
 //inifalitzi el preﬁx del LoggerManager amb la ruta de l’aplicació     
+    
+    //21/05/14- Añadimos Init para crear categorias
     @Override
     public void init() throws ServletException {
         super.init();
         String prefix = getServletContext().getRealPath("/");
         LoggerManager.prefix = prefix;
+        categoriaList = createCategoriasBeans();
+        getServletContext().setAttribute("categoriaList", categoriaList);
+        
 
     }
 
@@ -125,5 +135,25 @@ public class ControllerServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    //21/05/14- Creamos ArrayList
+    private ArrayList<Categoria> createCategoriasBeans() {
+        
+        ArrayList<Categoria> categoriaTmp = new ArrayList<Categoria>();
+        
+        Categoria lacteos = new Categoria( 1, "Lácteos","");
+        Categoria frutas = new Categoria(2,"Frutas","");
+        Categoria verduras = new Categoria(3,"Verduras","");
+        Categoria legumbres = new Categoria(4,"Legumbres","");
+        
+        categoriaTmp.add(lacteos);
+        categoriaTmp.add(frutas);
+        categoriaTmp.add(verduras);
+        categoriaTmp.add(legumbres);
+        
+        return categoriaTmp;
+     
+       
+    }
 
 }
