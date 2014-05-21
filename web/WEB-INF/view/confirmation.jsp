@@ -3,7 +3,6 @@
     Created on : 12-mar-2014, 16:48:46
     Author     : Administrador
 --%>
-<%@page errorPage="../error.jsp" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -12,13 +11,13 @@
     <div id="singleColumn">
 
         <p id="confirmationText">
-            <strong>Su orden est√° siendo procesada.<br> <br>
-               En un plazo m√°ximo de 24 horas recibir√° el pedido.</strong>
+            <strong>Su orden est· siendo procesada.<br> <br>
+               En un plazo m·ximo de 24 horas recibir· el pedido.</strong>
             <br><br>
             Pedido referencia:
-            <strong>[ n√∫mero de referencia ]</strong>
+            <strong>[ n˙mero de referencia ]</strong>
             <br>
-            Para cualquier aclaraci√≥n sobre el pedido , <a href="#">contactenos</a> haciendo constar
+            Para cualquier aclaraciÛn sobre el pedido , <a href="#">contactenos</a> haciendo constar
             referencia y fecha pedido.
             <br><br>
             <strong>Gracias por comprar en nuestra tienda!</strong>
@@ -65,7 +64,7 @@
 
                 <tr class="lightBlue">
                     <td colspan="2" id="deliverySurchargeCellLeft">
-                        <strong>Gastos de env√≠o:</strong>
+                        <strong>Gastos de envÌo:</strong>
                     </td>
                     <td id="deliverySurchargeCellRight">
                         &euro; [gastos de envio]
