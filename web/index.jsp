@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : index
     Created on : 12-mar-2014, 16:48:46
@@ -16,32 +17,19 @@
             
         </div>
     </div>
-
+<%--21/05/14-Sustituimos html fijo por bucle --%>
     <div id="indexRightColumn">
-        <div class="categoryBox">
-            <a href="category">
-                 <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat1</span>
+        <c:forEach var="categoria" items="${categoriaList}">
+            <div class="categoryBox">
+            <a href="category?categoryId=${categoria.id}">
+                 <span class="categoryLabel">${categoria.id}</span>
+                <span class="categoryLabelText">${categoria.nombre}</span>
+                <img src="${initParam.categoriasImagenesPath}/${categoria.imagen}" alt="${categoria.nombre}">
             </a>
         </div>
-        <div class="categoryBox">
-            <a href="category">
-                 <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat2</span>
-            </a>
-        </div>
-        <div class="categoryBox">
-            <a href="category">
-                 <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat3</span>
-            </a>
-        </div>
-        <div class="categoryBox">
-            <a href="category">
-                 <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat4</span>
-            </a>
-        </div>
+            
+        </c:forEach>
+        
     </div>
    
 
