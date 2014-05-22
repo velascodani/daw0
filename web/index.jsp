@@ -25,8 +25,10 @@
 <div id="indexRightColumn">
     <c:forEach var="categoria" items="${categoriaList}">
         <div class="categoryBox">
-            <a href="category?categoryId=${categoria.id}">
-                <span class="categoryLabel">${categoria.id}</span>
+
+<%--22/05/14-borramos parte del codigo para substituirlo por la variable dolar categoria.nombre --%>
+            <a href="category?${categoria.id}">
+                
                 <span class="categoryLabelText">${categoria.nombre}</span>
                 <img src="${initParam.categoriasImagenesPath}/${categoria.imagen}" alt="${categoria.imagen}">
             </a>
