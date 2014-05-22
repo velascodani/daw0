@@ -49,7 +49,7 @@ se cambia color de línea para cada producto dependiendo si es par o impar en bas
            
             <tr>
                 <td class="lightBlue">
-                    <img src="#" alt="product image">
+                    <img src="${initParam.productosImagePath}/${producto.imagen}" alt="${producto.imagen}">
                 </td>
                 <td class="lightBlue">
                     [ ${producto.nombre} ]
