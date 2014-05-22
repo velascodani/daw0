@@ -51,4 +51,14 @@ public class Categoria {
         this.imagen = imagen;
     }
     
+    //22-5-14 Hacemos get y set de arraList<Productos>
+    public ArrayList<Producto> getProductoList() {
+        return productoList;
+    }
+
+    public void setProductoList(ArrayList<Producto> productoList) {
+        this.productoList = productoList;
+    }
+
+   
 }
