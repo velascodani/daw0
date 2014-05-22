@@ -157,25 +157,25 @@ public class ControllerServlet extends HttpServlet {
         Categoria verduras = new Categoria(3, "Verduras", "verduras.jpg");
         Categoria legumbres = new Categoria(4, "Legumbres", "legumbres.jpg");
 
-        Producto huevo = new Producto(1, "Huevos", 0.50, "Huevos ecologicos", null, null, 1);
-        Producto leche = new Producto(2, "Leche", 1.00, "Leche de vaca", null, null, 1);
-        Producto lecheSoja = new Producto(3, "Leche de Soja", 1.80, "Leche de Soja", null, null, 1);
-        Producto queso = new Producto(4, "Quesos", 2.50, "Quesos Variados", null, null, 1);
+        Producto huevo = new Producto(1, "Huevos", 0.50, "Huevos ecologicos", null, "huevos.jpg", 1);
+        Producto leche = new Producto(2, "Leche", 1.00, "Leche de vaca", null, "leche.jpg", 1);
+        Producto lecheSoja = new Producto(3, "Leche de Soja", 1.80, "Leche de Soja", null, "lechesoja.jpg", 1);
+        Producto queso = new Producto(4, "Quesos", 2.50, "Quesos Variados", null, "queso.jpg", 1);
 
-        Producto manzana = new Producto(1, "Manzana", 0.40, "Manzanas del Campo", null, null, 2);
-        Producto naranja = new Producto(2, "Naranja", 0.30, "Naranjas del Campo", null, null, 2);
-        Producto platano = new Producto(3, "Plátano", 0.50, "Platanos de Canarias", null, null, 2);
-        Producto fresa = new Producto(4, "Fresas", 0.40, "Fresas del Campo", null, null, 2);
+        Producto manzana = new Producto(1, "Manzana", 0.40, "Manzanas del Campo", null, "manzanas.jpg", 2);
+        Producto naranja = new Producto(2, "Naranja", 0.30, "Naranjas del Campo", null, "naranjas.jpg", 2);
+        Producto platano = new Producto(3, "Plátano", 0.50, "Platanos de Canarias", null, "platanos.jpg", 2);
+        Producto fresa = new Producto(4, "Fresas", 0.40, "Fresas del Campo", null, "fresas.jpg", 2);
 
-        Producto alcachofa = new Producto(1, "Alcachofa", 0.40, "Alcachofas del Campo", null, null, 3);
-        Producto coliflor = new Producto(2, "Coliflor", 0.40, "Coliflor del Campo", null, null, 3);
-        Producto judia = new Producto(3, "Judías", 0.40, "Judía tierna", null, null, 3);
-        Producto acelgas = new Producto(4, "Acelgas", 0.40, "Acelgas Frescas", null, null, 3);
+        Producto alcachofa = new Producto(1, "Alcachofa", 0.40, "Alcachofas del Campo", null, "alcachofas.jpg", 3);
+        Producto coliflor = new Producto(2, "Coliflor", 0.40, "Coliflor del Campo", null, "coliflor.jpg", 3);
+        Producto judia = new Producto(3, "Judías", 0.40, "Judía tierna", null, "judias.jpg", 3);
+        Producto acelgas = new Producto(4, "Acelgas", 0.40, "Acelgas Frescas", null, "acelgas.jpg", 3);
 
-        Producto garbanzos = new Producto(1, "Garbanzos", 0.40, "Garbanzos pa pearte", null, null, 4);
-        Producto lentejas = new Producto(2, "Lentejas", 0.40, "Lentejas Frescas", null, null, 4);
-        Producto judias = new Producto(3, "Judías", 0.40, "Judías", null, null, 4);
-        Producto soja = new Producto(4, "Soja", 0.40, "Granos de Soja", null, null, 4);
+        Producto garbanzos = new Producto(1, "Garbanzos", 0.40, "Garbanzos pa pearte", null, "garbanzos.jpg", 4);
+        Producto lentejas = new Producto(2, "Lentejas", 0.40, "Lentejas Frescas", null, "lentejas.jpg", 4);
+        Producto judias = new Producto(3, "Judías", 0.40, "Judías", null, "judiasecas.jpg", 4);
+        Producto soja = new Producto(4, "Soja", 0.40, "Granos de Soja", null, "soja.jpg", 4);
 
         // 22-5-14 Añadidos productos a lista de productos
         lacteosTmp.add(huevo);
