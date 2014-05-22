@@ -41,7 +41,7 @@
 
                 </div>
 
-                <a href="#">
+                <a href="index.jsp">
                     <img src="${initParam.images}/logo.jpg" id="logo" alt="logo">
                 </a>
 
