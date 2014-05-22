@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%--
     Document   : categoria
     Created on : 12-mar-2014, 16:48:46
@@ -10,96 +11,79 @@
 
 
 
-            <div id="categoryLeftColumn">
-                <div class="categoryButton" id="selectedCategory">
-                    <span class="categoryText">Cat 1</span>
-                </div>
+<%-- 22/05/14 pasamos los productos de la categoria seleccionada, con el if controlamos para que el resto de categorias salgan
+como link para q se puedan seleccionar tambien
+        --%>  
 
-                <a href="category" class="categoryButton">
-                    <span class="categoryText">Cat 2</span>
-                </a>
+<div id="categoryLeftColumn">
 
-                <a href="category" class="categoryButton">
-                    <span class="categoryText">Cat 3</span>
-                </a>
+    <c:forEach var="categoria" items="${categoriaList}">
 
-                <a href="category" class="categoryButton">
-                    <span class="categoryText">Cat 4</span>
-                </a>
-            </div>
+        <c:if test="${categoriaSeleccionada.id==categoria.id}">
 
-            <div id="categoryRightColumn">
-                <p id="categoryTitle">[ categoria selecionada ]</p>
+            <div class="categoryButton" id="selectedCategory">
+                <span class="categoryText">${categoria.nombre}</span>
+            </div>  </c:if>
+        
+        <c:if test="${categoriaSeleccionada.id!=categoria.id}">
 
-                <table id="productTable">
-                    <tr>
-                        <td class="lightBlue">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="lightBlue">
-                            [ nombre producto  ]
-                            <br>
-                            <span class="smallText">[ descripcion producto  ]</span>
-                        </td>
-                        <td class="lightBlue">[ precio ]</td>
-                        <td class="lightBlue">
-                            <form action="addToCart" method="post">
-                                <input type="submit" value="comprar">
-                            </form>
-                        </td>
-                    </tr>
+            <a href="category?${categoria.id}" class="categoryButton">
+                <span class="categoryText">${categoria.nombre}</span>
+            </a>
+        </c:if>
+    </c:forEach>
 
-                    <tr>
-                        <td class="white">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="white">
-                            [ nombre producto ]
-                            <br>
-                            <span class="smallText">[ descripcion producto ]</span>
-                        </td>
-                        <td class="white">[ precio ]</td>
-                        <td class="white">
-                            <form action="addToCart" method="post">
-                                <input type="submit" value="comprar">
-                            </form>
-                        </td>
-                    </tr>
+</div>
 
-                    <tr>
-                        <td class="lightBlue">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="lightBlue">
-                            [ nombre producto ]
-                            <br>
-                            <span class="smallText">[ descripcion producto ]</span>
-                        </td>
-                        <td class="lightBlue">[ precio ]</td>
-                        <td class="lightBlue">
-                            <form action="addToCart" method="post">
-                                <input type="submit" value="comprar">
-                            </form>
-                        </td>
-                    </tr>
+<div id="categoryRightColumn">
+    <p id="categoryTitle">${categoriaSeleccionada.nombre}</p>
 
-                    <tr>
-                        <td class="white">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="white">
-                            [ nombre producto ]
-                            <br>
-                            <span class="smallText">[ descripcion producto ]</span>
-                        </td>
-                        <td class="white">[ precio ]</td>
-                        <td class="white">
-                            <form action="addToCart" method="post">
-                                <input type="submit" value="Comprar">
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+    <table id="productTable">
 
-         
+        <%-- 22/05/14 dentro del dolar tiene q coincidir con el request de la servlet dedicado a los productos
+se cambia color de línea para cada producto dependiendo si es par o impar en base al valor recogido por varStatus        
+        --%>  
+
+        <c:forEach var="producto" items="${listaProductos}" varStatus="indicePar"> 
+            <c:if test="${(indicePar.index % 2)==0}">
+           
+            <tr>
+                <td class="lightBlue">
+                    <img src="#" alt="product image">
+                </td>
+                <td class="lightBlue">
+                    [ ${producto.nombre} ]
+                    <br>
+                    <span class="smallText">[  ${producto.descripcion}  ]</span>
+                </td>
+                <td class="lightBlue">[ ${producto.precio} ]</td>
+                <td class="lightBlue">
+                    <form action="addToCart" method="post">
+                        <input type="submit" value="comprar">
+                    </form>
+                </td>
+            </tr>
+            </c:if>
+               <c:if test="${(indicePar.index % 2)!=0}">
+           
+            <tr>
+                <td class="white">
+                    <img src="#" alt="product image">
+                </td>
+                <td class="white">
+                    [ ${producto.nombre} ]
+                    <br>
+                    <span class="smallText">[  ${producto.descripcion}  ]</span>
+                </td>
+                <td class="white">[ ${producto.precio} ]</td>
+                <td class="white">
+                    <form action="addToCart" method="post">
+                        <input type="submit" value="comprar">
+                    </form>
+                </td>
+            </tr>
+            </c:if>
+        </c:forEach>
+    </table>
+</div>
+
