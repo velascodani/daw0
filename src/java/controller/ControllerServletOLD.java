@@ -8,25 +8,19 @@ package controller;
 import beans.Categoria;
 import beans.Producto;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import managers.DatabaseManager;
 import managers.LoggerManager;
 
 /**
  *
  * @author OCAD
  */
-public class ControllerServlet extends HttpServlet {
+public class ControllerServletOLD extends HttpServlet {
 
     private ArrayList<Categoria> categoriaList;
 
@@ -38,15 +32,8 @@ public class ControllerServlet extends HttpServlet {
         super.init();
         String prefix = getServletContext().getRealPath("/");
         LoggerManager.prefix = prefix;
-
-/*28.05.14
-         - Llamada a la función  Crear Categorías y guardar la lista en la sesión
-         */
-        DatabaseManager.abrirConexion();
-        categoriaList = crearCategorias();
-        getServletContext ().setAttribute("categoriaList", categoriaList);
-
-        DatabaseManager.cerrarConexion();
+        categoriaList = createCategoriasBeans();
+        getServletContext().setAttribute("categoriaList", categoriaList);
 
     }
 
@@ -62,8 +49,6 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//28.05.14 llamada a la función DatabaseManager.java para conectar con la Base de Datos
-        DatabaseManager.abrirConexion();
 
         // Leer el mapeo en web.xml
         String userPath = request.getServletPath();
@@ -71,7 +56,7 @@ public class ControllerServlet extends HttpServlet {
 
         // si es "/category" asignar a dirección    
         if (userPath.equals("/category")) {
-
+            
             //22-5-14 definimos metodo para buscar categoria, pasamos la categoria seleccionada y la lista de productos de dicha categoria
             String categoriaId = request.getQueryString();
             categoria = buscarCategoria(categoriaId);
@@ -101,7 +86,6 @@ public class ControllerServlet extends HttpServlet {
         String url = "/WEB-INF/view/" + userPath + ".jsp";
         request.setAttribute("view", url);
         request.getRequestDispatcher(url).forward(request, response);
-        DatabaseManager.cerrarConexion();
     }
 
     /**
@@ -115,9 +99,6 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-//28.05.14 llamada a la función DatabaseManager.java para conectar con la Base de Datos
-        DatabaseManager.abrirConexion();
 
         // Leer el mapeo en web.xml
         String userPath = request.getServletPath();
@@ -148,7 +129,6 @@ public class ControllerServlet extends HttpServlet {
         request.setAttribute("view", url);
         request.getRequestDispatcher(url).forward(request, response);
 
-        DatabaseManager.cerrarConexion();
     }
 
     /**
@@ -161,61 +141,95 @@ public class ControllerServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    //22-5-14 buscamos categoria por id, devolvemos la categoria q coincide con el id q le pasamos
-    private Categoria buscarCategoria(String categoriaId) {
+    //21/05/14- Creamos ArrayList con categorias
+    private ArrayList<Categoria> createCategoriasBeans() {
 
-        Categoria categoria = null;
-        int categoriaIdInt = Integer.parseInt(categoriaId);
+        ArrayList<Categoria> categoriaTmp = new ArrayList<Categoria>();
+        ArrayList<Producto> lacteosTmp = new ArrayList<Producto>();
+        ArrayList<Producto> frutasTmp = new ArrayList<Producto>();
+        ArrayList<Producto> verdurasTmp = new ArrayList<Producto>();
+        ArrayList<Producto> legumbresTmp = new ArrayList<Producto>();
+  
+        //22/05/14 Creando productos
+         
+        Categoria lacteos = new Categoria(1, "Lácteos", "lacteos.jpg");
+        Categoria frutas = new Categoria(2, "Frutas", "frutas.jpg");
+        Categoria verduras = new Categoria(3, "Verduras", "verduras.jpg");
+        Categoria legumbres = new Categoria(4, "Legumbres", "legumbres.jpg");
 
-        for (int i = 0; i < categoriaList.size(); i++) {
-            if (categoriaList.get(i).getId() == categoriaIdInt) {
-                return categoriaList.get(i);
-            }
+        Producto huevo = new Producto(1, "Huevos", 0.50, "Huevos ecologicos", null, "huevos.jpg", 1);
+        Producto leche = new Producto(2, "Leche", 1.00, "Leche de vaca", null, "leche.jpg", 1);
+        Producto lecheSoja = new Producto(3, "Leche de Soja", 1.80, "Leche de Soja", null, "lechesoja.jpg", 1);
+        Producto queso = new Producto(4, "Quesos", 2.50, "Quesos Variados", null, "queso.jpg", 1);
 
-        }
+        Producto manzana = new Producto(1, "Manzana", 0.40, "Manzanas del Campo", null, "manzanas.jpg", 2);
+        Producto naranja = new Producto(2, "Naranja", 0.30, "Naranjas del Campo", null, "naranjas.jpg", 2);
+        Producto platano = new Producto(3, "Plátano", 0.50, "Platanos de Canarias", null, "platanos.jpg", 2);
+        Producto fresa = new Producto(4, "Fresas", 0.40, "Fresas del Campo", null, "fresas.jpg", 2);
 
-        return categoria;
+        Producto alcachofa = new Producto(1, "Alcachofa", 0.40, "Alcachofas del Campo", null, "alcachofas.jpg", 3);
+        Producto coliflor = new Producto(2, "Coliflor", 0.40, "Coliflor del Campo", null, "coliflor.jpg", 3);
+        Producto judia = new Producto(3, "Judías", 0.40, "Judía tierna", null, "judias.jpg", 3);
+        Producto acelgas = new Producto(4, "Acelgas", 0.40, "Acelgas Frescas", null, "acelgas.jpg", 3);
+
+        Producto garbanzos = new Producto(1, "Garbanzos", 0.40, "Garbanzos pa pearte", null, "garbanzos.jpg", 4);
+        Producto lentejas = new Producto(2, "Lentejas", 0.40, "Lentejas Frescas", null, "lentejas.jpg", 4);
+        Producto judias = new Producto(3, "Judías", 0.40, "Judías", null, "judiasecas.jpg", 4);
+        Producto soja = new Producto(4, "Soja", 0.40, "Granos de Soja", null, "soja.jpg", 4);
+
+        // 22-5-14 Añadidos productos a lista de productos
+        lacteosTmp.add(huevo);
+        lacteosTmp.add(leche);
+        lacteosTmp.add(lecheSoja);
+        lacteosTmp.add(queso);
+        lacteos.setProductoList(lacteosTmp);
+
+        
+        frutasTmp.add(manzana);
+        frutasTmp.add(naranja);
+        frutasTmp.add(platano);
+        frutasTmp.add(fresa);
+        frutas.setProductoList(frutasTmp);
+
+        verdurasTmp.add(alcachofa);
+        verdurasTmp.add(coliflor);
+        verdurasTmp.add(judia);
+        verdurasTmp.add(acelgas);
+        verduras.setProductoList(verdurasTmp);
+
+        legumbresTmp.add(garbanzos);
+        legumbresTmp.add(lentejas);
+        legumbresTmp.add(judias);
+        legumbresTmp.add(soja);
+        legumbres.setProductoList(legumbresTmp);
+        
+        
+        //22-5-14 Añadir lista de productos a categorias
+        categoriaTmp.add(lacteos);
+        categoriaTmp.add(frutas);
+        categoriaTmp.add(verduras);
+        categoriaTmp.add(legumbres);
+      
+                
+        return categoriaTmp;
 
     }
-/*28.05.14 FUNCION PARA CREAR CATEGORIAS
-    
-         - Llamada a la función DatabaseManager.java para conectar con la Base de Datos
-         - Preeparar sql
-         - Ejecutar sql 
-         - Tratar registros mediante bucle
-         - Crear categorías
-         */
 
-
-    private ArrayList<Categoria> crearCategorias() {
-
-        categoriaList = new ArrayList<Categoria>();
-
-        try {
-            String categoriaSql = "SELECT * FROM categoria";
-            PreparedStatement preparedStatement = null;
-            ResultSet resultSet = null;
-            preparedStatement = DatabaseManager.conn.prepareStatement(categoriaSql);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String nom = resultSet.getString("nom");
-                String img = resultSet.getString("img");
-                Categoria categoria = new Categoria(id, nom, img);
-                categoriaList.add(categoria);
-
-            }
-            
-            preparedStatement.close();
-            resultSet.close();
-
-        } catch (SQLException ex) {
-            LoggerManager.getLog().error(ex.toString());
-        } finally {
-            return categoriaList;
-        }
-
+    //22-5-14 buscamos categoria por id, devolvemos la categoria q coincide con el id q le pasamos
+    private Categoria buscarCategoria(String categoriaId) {
+        
+      Categoria categoria= null;
+      int categoriaIdInt = Integer.parseInt(categoriaId);
+        
+      for(int i=0; i<categoriaList.size(); i++){
+          if(categoriaList.get(i).getId()==categoriaIdInt){
+          return categoriaList.get(i);
+          }
+      
+      }  
+      
+        return categoria;
+        
     }
 
 }
