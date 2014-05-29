@@ -31,6 +31,13 @@ public class Producto {
         this.imagen = imagen;
         this.categoriaid = categoriaid;
     }
+    public Producto(int id, String nombre, double precio, String descripcion, String imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+    }
 
     public int getId() {
         return id;
