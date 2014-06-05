@@ -7,6 +7,8 @@ package controller;
 
 import beans.Categoria;
 import beans.Producto;
+import carrito.CarritoCompra;
+import carrito.ProductoCarritoCompra;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import managers.DatabaseManager;
 import managers.LoggerManager;
 
@@ -73,9 +76,9 @@ public class ControllerServlet extends HttpServlet {
         if (userPath.equals("/category")) {
 
             //22-5-14 definimos metodo para buscar categoria, pasamos la categoria seleccionada y la lista de productos de dicha categoria
-            
             String categoriaId = request.getQueryString();
             ArrayList<Producto> listaPdtos = buscarPdtosCategoria(categoriaId);
+            
 // 29/05/2014 LLamada a la función para buscar Categoría seleccionada  desde el menú principal             
             categoria = buscarCategoriaPorId(categoriaId);
             request.getSession().setAttribute("categoriaSeleccionada", categoria);
@@ -125,9 +128,28 @@ public class ControllerServlet extends HttpServlet {
         // Leer el mapeo en web.xml
         String userPath = request.getServletPath();
 
+        //5-junio abrimos la sesson y recuperamos el objeto carrito
+        HttpSession httpSession = request.getSession();
+        CarritoCompra carritoCompra = (CarritoCompra) httpSession.getAttribute("carritoCompra");
+
         // si es "/addToCart" asignar a dirección
         if (userPath.equals("/addToCart")) {
+
             userPath = "category";
+
+            //5-junio comprobamos si existe el carrito o no y sino existe lo creamos
+            
+            if (carritoCompra == null) {
+
+                carritoCompra = new CarritoCompra();
+            }
+            String productoIdString = request.getParameter("productoID");
+
+            int productoID = Integer.parseInt(productoIdString);
+
+// llamamos a un metodo para recuperar el producto seleccionado
+            Producto producto = cogerProd(productoID);
+
         }
 
         // si es "/updateCart" asignar a dirección
@@ -154,13 +176,45 @@ public class ControllerServlet extends HttpServlet {
         DatabaseManager.cerrarConexion();
     }
 
+    //5-junio metodo para coger el producto seleccionado y tramitamos el producto q hemos cogido en
+    //la clase CarritoCompra
+    
+    private Producto cogerProd(int productoID) {
+
+        Producto producto = null;
+        String sql = "SELECT * FROM producte WHERE producte_id =" + productoID;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = DatabaseManager.conn.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                  int id = resultSet.getInt("id");
+                String nom = resultSet.getString("nom");
+                String img = resultSet.getString("img");
+                String desc = resultSet.getString("desc");
+                double preu = resultSet.getDouble("preu");
+           producto = new Producto(id, nom, preu, desc, img);
+           
+             
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return producto;
+
+    }
+
+
+
+
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
@@ -235,10 +289,11 @@ public class ControllerServlet extends HttpServlet {
         }
 
     }
-/*29/05/14
-    Función que selecciona de la clase Categoría el objeto de la arryalist mediante su id.
-    Este objeto se trata en category.jsp para mostrar la categoría
-    */
+    /*29/05/14
+     Función que selecciona de la clase Categoría el objeto de la arryalist mediante su id.
+     Este objeto se trata en category.jsp para mostrar la categoría
+     */
+
     private Categoria buscarCategoriaPorId(String categoriaId) {
         Categoria categoriaTmp = null;
         int categoriaIdInt = Integer.parseInt(categoriaId);
