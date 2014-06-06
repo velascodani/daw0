@@ -23,7 +23,7 @@
                     <a href="checkout" class="bubble hMargin">proceder con el pedido</a>
                 </div>
 
-                <%-- si el carrito esta definiido y tengo elementos en el carrito  --%>  
+                <%-- si el carrito esta definido y tengo elementos en el carrito  --%>  
                 <h4 id="subtotal">[ subtotal: xxx ]</h4>
 
                 <table id="cartTable">
@@ -34,33 +34,40 @@
                         <th>precio</th>
                         <th>cuantidad</th>
                     </tr>
-
+                    
+<c:forEach var="producto" items="${carritoCompra.listaCarrito}" varStatus="indicePar"> 
+            <c:if test="${(indicePar.index % 2)==0}">
+           
+            <tr>
+               
+                
+                <td class="lightBlue">
                     <tr>
                         <td class="lightBlue">
-                            <img src="#" alt="product image">
+                            <img src="${initParam.productosImagePath}/${producto.product.imagen}" alt="product image">
                         </td>
                         
-                        <td class="lightBlue">[ nombre producto ]</td>
+                        <td class="lightBlue">${producto.product.nombre}</td>
                         
                         <td class="lightBlue">
-                            [&euro; precio ] <%-- precio productos --%>
+                            ${producto.product.precio * producto.cantidad} <%-- precio productos --%>
                             <br>
                             <span class="smallText">
-                                [detalles precio unitad]
+                                ${producto.product.precio}
                                
                             </span>
                         </td>
                         
-                        <td class="lightBlue">[ cuantidad ]
+                        <td class="lightBlue">${producto.cantidad}
 
                             <form action="updateCart" method="post">
                                 <input type="hidden"
                                        name="productId"
-                                       value="productoId"> <%--id del producto --%>
+                                       value="${producto.product.id}"> <%--id del producto --%>
                                 <input type="text"
                                        maxlength="2"
                                        size="2"
-                                       value="1" <%--cuantidad de productos que tengo en el carrito --%>
+                                       value="${producto.cantidad}" <%--cuantidad de productos que tengo en el carrito --%>
                                        name="quantity">
                                 <input type="submit"
                                        name="submit"
@@ -68,7 +75,50 @@
                             </form>
                         </td>
                     </tr>
+            </c:if>
+            <c:if test="${(indicePar.index % 2)!=0}">
+           
+            <tr>
+               
+                
+                <td class="white">
+                    <tr>
+                        <td class="white">
+                            <img src="${initParam.productosImagePath}/${producto.product.imagen}" alt="product image">
+                        </td>
+                        
+                        <td class="white">${producto.product.nombre}</td>
+                        
+                        <td class="white">
+                            ${producto.product.precio * producto.cantidad} <%-- precio productos --%>
+                            <br>
+                            <span class="smallText">
+                                ${producto.product.precio}
+                               
+                            </span>
+                        </td>
+                        
+                        <td class="white">${producto.cantidad}
 
+                            <form action="updateCart" method="post">
+                                <input type="hidden"
+                                       name="productId"
+                                       value="${producto.product.id}"> <%--id del producto --%>
+                                <input type="text"
+                                       maxlength="2"
+                                       size="2"
+                                       value="${producto.cantidad}" <%--cuantidad de productos que tengo en el carrito --%>
+                                       name="quantity">
+                                
+                                <input type="submit"
+                                       name="submit"
+                                       value="actualizar">
+                            </form>
+                        </td>
+                    </tr>
+            </c:if>         
+</c:forEach>
+<!--
                      <tr>
                         <td class="white">
                             <img src="#" alt="product image">
@@ -136,6 +186,7 @@
                             </form>
                         </td>
                     </tr>
+                    --!>
 
                 </table>
 

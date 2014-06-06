@@ -31,7 +31,7 @@ public class ProductoCarritoCompra {
         this.cantidad = cantidad;
     }
 
-    public Producto getProducto() {
+    public Producto getProduct() {
         return product;
     }
 
@@ -40,9 +40,12 @@ public class ProductoCarritoCompra {
     }
     public void incrementaCantidad(){
     //5-junio TODO implementar este metodo
+        cantidad++;
     }
     
-    public void decrementaCantidad(){}
+    public void decrementaCantidad(){
+    cantidad--;
+    }
     
     public void getPrecioProducto(){}
     

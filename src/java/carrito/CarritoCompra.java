@@ -15,22 +15,31 @@ import java.util.ArrayList;
 public class CarritoCompra {
 
     private int numeroProductos;
+
     private double total;
-    private ArrayList<ProductoCarritoCompra> listaCarrito = new ArrayList<ProductoCarritoCompra>();
+    private ArrayList<ProductoCarritoCompra> listaCarrito;
 
     public CarritoCompra() {
-    }
+     listaCarrito = new ArrayList<ProductoCarritoCompra>();
+ }
 
     //implementamos metodo añadirProducto mirando si ya esta el producto que viene de la servlet
     //en la listaCarrito y si está llamamos a incrementaCantidad
     
     public void añadirProducto(Producto producto) {
         
+        boolean productoEncontrado= false;
         for(int i=0; i<listaCarrito.size();i++){
-     if (producto.getId() == listaCarrito.get(i).getProducto().getId()) {
+     if (producto.getId() == listaCarrito.get(i).getProduct().getId()) {
                 listaCarrito.get(i).incrementaCantidad();
+                productoEncontrado= true;
             }
         }
+        if (productoEncontrado==false){
+           ProductoCarritoCompra productoNuevo = new ProductoCarritoCompra(1, producto);
+        listaCarrito.add(productoNuevo);
+        }
+        numeroProductos++;
     }
 
     public double subTotal() {
@@ -46,10 +55,22 @@ public class CarritoCompra {
     }
 
     public void limpia() {
+        listaCarrito.clear();
+        numeroProductos=0;
     }
 
     public void actualiza(int cantidad, int productoIdInt) {
-//TODO completar
+        int productoInicial = 0;
+        int indexProducto=0;
+        for(int i=0; i<listaCarrito.size(); i++){
+        if(productoIdInt==listaCarrito.get(i).getProduct().getId()){
+        indexProducto= i;
+        }}
+        ProductoCarritoCompra productoCarritoCompra= listaCarrito.get(indexProducto);
+        productoInicial = productoCarritoCompra.getCantidad();
+     //TODO completar  esto
+        
+
     }
 
     public void calculaTotal(String gastosEnvio) {
@@ -60,6 +81,7 @@ public class CarritoCompra {
     }
 
     public int getNumeroProductos() {
+        
         return numeroProductos;
     }
 

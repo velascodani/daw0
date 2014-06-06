@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page errorPage="../error.jsp" language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%-- 21/05/14 - El tag error se elimina de todas las JSP y se añade aquí
 --%>
@@ -22,6 +23,15 @@
                             * si el servlet path no esta en /carrito
                             
                         --%>
+                        <c:choose>
+                            <c:when test="${carritoCompra!=null}">
+                                El carrito tiene ${carritoCompra.numeroProductos}
+                            </c:when>
+                            <c:otherwise>
+                                El carrito está vacío
+                            </c:otherwise>
+                        </c:choose>
+
                         <a href="checkout" class="bubble">
                         realizar pedido &#x279f;
                          </a>

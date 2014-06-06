@@ -80,6 +80,7 @@ se cambia color de línea para cada producto dependiendo si es par o impar en bas
                 <td class="white">[ ${producto.precio} ]</td>
                 <td class="white">
                     <form action="addToCart" method="post">
+                        <input type="hidden" name="productoID" value="${producto.id}">
                         <input type="submit" value="comprar">
                     </form>
                 </td>
