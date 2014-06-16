@@ -64,6 +64,7 @@ public class CarritoCompra {
         int indexProducto=0;
         for(int i=0; i<listaCarrito.size(); i++){
         if(productoIdInt==listaCarrito.get(i).getProduct().getId()){
+            listaCarrito.get(i).setCantidad(cantidad);
         indexProducto= i;
         }}
         ProductoCarritoCompra productoCarritoCompra= listaCarrito.get(indexProducto);
