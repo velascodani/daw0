@@ -47,7 +47,9 @@ public class ProductoCarritoCompra {
     cantidad--;
     }
     
-    public void getPrecioProducto(){}
+    public double getPrecioProducto(){
+        return 0;
+}
     
     public String toString(){
         return null;

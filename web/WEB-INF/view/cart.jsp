@@ -12,7 +12,7 @@
 
             <div id="centerColumn">
 
-                <p>Tu carrito de la compra contiene X artículos.</p>
+                <p>Tu carrito de la compra contiene ${carritoCompra.numeroProductos} artículos.</p>
 
                  <div id="actionBar">
                     <%-- si esta definido el carrito i el numero de elemento  es >0--%>
@@ -26,15 +26,15 @@
                 </div>
 
                 <%-- si el carrito esta definido y tengo elementos en el carrito  --%>  
-                <h4 id="subtotal">[ subtotal: xxx ]</h4>
+                <h4 id="subtotal"> Subtotal compra: ${carritoCompra.subTotal}</h4>
 
                 <table id="cartTable">
 
                     <tr class="header">
-                        <th>producto</th>
-                        <th>nombre</th>
-                        <th>precio</th>
-                        <th>cuantidad</th>
+                        <th>Producto</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
                     </tr>
                     
 <c:forEach var="producto" items="${carritoCompra.listaCarrito}" varStatus="indicePar"> 
