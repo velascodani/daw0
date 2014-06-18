@@ -24,7 +24,7 @@
                             
                         --%>
                         <c:choose>
-                            <c:when test="${carritoCompra!=null}">
+                            <c:when test="${carritoCompra!=null && carritoCompra.numeroProductos>0}">
                                 El carrito tiene ${carritoCompra.numeroProductos}
                             </c:when>
                             <c:otherwise>
@@ -32,7 +32,7 @@
                             </c:otherwise>
                         </c:choose>
                         <c:choose>
-                            <c:when test="${carritoCompra!=null}">
+                            <c:when test="${carritoCompra!=null && carritoCompra.numeroProductos>0}">
                                 <a href="checkout" class="bubble">
                                     realizar pedido &#x279f;
                                 </a>
@@ -53,7 +53,7 @@
                        
                         </span>
                         <c:choose>
-                            <c:when test="${carritoCompra!=null}">
+                            <c:when test="${carritoCompra!=null && carritoCompra.numeroProductos>0}">
                                 <a href="viewCart" class="bubble">
                                     ver carrito 
                                 </a>
