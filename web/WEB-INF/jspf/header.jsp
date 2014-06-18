@@ -31,10 +31,18 @@
                                 El carrito está vacío
                             </c:otherwise>
                         </c:choose>
-
-                        <a href="checkout" class="bubble">
-                        realizar pedido &#x279f;
-                         </a>
+                        <c:choose>
+                            <c:when test="${carritoCompra!=null}">
+                                <a href="#" class="bubble">
+                                    realizar pedido &#x279f;
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="checkout" class="bubble">
+                                    realizar pedido &#x279f;
+                                </a>                                
+                            </c:otherwise>
+                        </c:choose>
                         
                     </div>  
 
@@ -44,9 +52,18 @@
                         <span class="horizontalMargin">
                        
                         </span>
-                        <a href="viewCart" class="bubble">
-                          ver carrito 
-                      </a>
+                        <c:choose>
+                            <c:when test="${carritoCompra!=null}">
+                                <a href="#" class="bubble">
+                                    ver carrito 
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="viewCart" class="bubble">
+                                    ver carrito 
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                 </div>
