@@ -52,7 +52,7 @@
                         <td class="lightBlue">${producto.product.nombre}</td>
                         
                         <td class="lightBlue">
-                            ${producto.product.precio * producto.cantidad} <%-- precio productos --%>
+                            ${producto.precioProducto} <%-- precio productos --%>
                             <br>
                             <span class="smallText">
                                 ${producto.product.precio}
@@ -92,7 +92,7 @@
                         <td class="white">${producto.product.nombre}</td>
                         
                         <td class="white">
-                            ${producto.product.precio * producto.cantidad} <%-- precio productos --%>
+                            ${producto.precioProducto} <%-- precio productos --%>
                             <br>
                             <span class="smallText">
                                 ${producto.product.precio}

@@ -28,6 +28,10 @@
         <param-name>productosImagePath</param-name>
         <param-value>images/productos</param-value>
     </context-param>
+     <context-param>
+        <param-name>gastos</param-name>
+        <param-value>6</param-value>
+    </context-param>
     <context-param>
         <param-name>categoriasImagenesPath</param-name>
         <param-value>images/categorias</param-value>

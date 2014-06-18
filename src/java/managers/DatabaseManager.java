@@ -137,4 +137,8 @@ public class DatabaseManager {
         return id;
     }
 
+    public static void openConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -6,6 +6,7 @@
 package controller;
 
 import beans.Categoria;
+import beans.OrdenCliente;
 import beans.Producto;
 import carrito.CarritoCompra;
 import carrito.ProductoCarritoCompra;
@@ -15,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +35,7 @@ import managers.LoggerManager;
 public class ControllerServlet extends HttpServlet {
 
     private ArrayList<Categoria> categoriaList;
+    private int gastos;
 
 // 21/05/14 - Modiﬁcar el ControllerServlet perquè implemenf el mètode init i 
 //inifalitzi el preﬁx del LoggerManager amb la ruta de l’aplicació     
@@ -42,6 +45,7 @@ public class ControllerServlet extends HttpServlet {
         super.init();
         String prefix = getServletContext().getRealPath("/");
         LoggerManager.prefix = prefix;
+       gastos=  Integer.parseInt (getServletConfig().getInitParameter("gastos"));
 
         /*28.05.14
          - Llamada a la función  Crear Categorías y guardar la lista en la sesión
@@ -68,7 +72,7 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
 //28.05.14 llamada a la función DatabaseManager.java para conectar con la Base de Datos
         DatabaseManager.abrirConexion();
-        
+
         HttpSession httpSession = request.getSession();
         CarritoCompra carritoCompra = (CarritoCompra) httpSession.getAttribute("carritoCompra");
 
@@ -104,7 +108,7 @@ public class ControllerServlet extends HttpServlet {
         // si es "/cleanCart" asignar a dirección
         if (userPath.equals("/cleanCart")) {
             carritoCompra.limpia();
-               httpSession.setAttribute("carritoCompra", carritoCompra);
+            httpSession.setAttribute("carritoCompra", carritoCompra);
             userPath = "cart";
         }
 
@@ -150,7 +154,7 @@ public class ControllerServlet extends HttpServlet {
             //5-junio comprobamos si existe el carrito o no y sino existe lo creamos
             if (carritoCompra == null) {
 
-                carritoCompra = new CarritoCompra();
+                carritoCompra = new CarritoCompra(gastos);
             }
             String productoIdString = request.getParameter("productoID");
 
@@ -165,17 +169,42 @@ public class ControllerServlet extends HttpServlet {
 
         // si es "/updateCart" asignar a dirección
         if (userPath.equals("/updateCart")) {
-            
-           int cantidad= Integer.parseInt(request.getParameter("quantity"));
-           int producteID = Integer.parseInt(request.getParameter("productId"));
+
+            int cantidad = Integer.parseInt(request.getParameter("quantity"));
+            int producteID = Integer.parseInt(request.getParameter("productId"));
             carritoCompra.actualiza(cantidad, producteID);
-               httpSession.setAttribute("carritoCompra", carritoCompra);
-            
+            httpSession.setAttribute("carritoCompra", carritoCompra);
+
             userPath = "cart";
         }
 
         // si es "/purchase" asignar a dirección
         if (userPath.equals("/purchase")) {
+            //recuperar datos formulario
+
+            String nombre = request.getParameter("nombre");
+            String email = request.getParameter("email");
+            String telefono = request.getParameter("telefono");
+            String direcion = request.getParameter("direcion");
+            String tarjeta = request.getParameter("tarjeta");
+
+            if (nombre != null && !nombre.equals("")
+                    && email != null && !email.equals("")
+                    && telefono != null && !telefono.equals("")
+                    && direcion != null && !direcion.equals("")
+                    && tarjeta != null && !tarjeta.equals("")) {
+
+                int numeroConfirmacion = gestionaOrden(nombre, email, direcion, telefono, tarjeta, carritoCompra);
+
+            } else {
+                userPath = "checkout";
+
+            }
+
+// crear cliente BD
+            // devolver id cliente
+            // crear orden
+            // añadir productos en la orden
             userPath = "confirmation";
         }
 
@@ -312,6 +341,93 @@ public class ControllerServlet extends HttpServlet {
 
         }
         return categoriaTmp;
+    }
+
+    private int gestionaOrden(String nombre, String email, String direcion, String telefono, String tarjeta, CarritoCompra carritoCompra) {
+
+        OrdenCliente ordenCliente = null;
+        try {
+            DatabaseManager.conn.setAutoCommit(false);
+            int clienteID = creaCliente(nombre, email, telefono, direcion, tarjeta);
+            ordenCliente = creaOrden(carritoCompra, clienteID);
+            creaProductoOrden(carritoCompra, ordenCliente.getId());
+            DatabaseManager.conn.commit();
+            DatabaseManager.conn.setAutoCommit(true);
+            return 0;
+        } catch (SQLException ex) {
+            try {
+                DatabaseManager.conn.rollback();
+            } catch (SQLException ex1) {
+                LoggerManager.getLog().error(ex.toString());
+            }
+            LoggerManager.getLog().error(ex.toString());
+        } finally {
+            return ordenCliente.getNumeroConfirmacion();
+        }
+
+    }
+
+    private int creaCliente(String nombre, String email, String telef, String direcion, String tarjeta) {
+
+        int clienteID = 0;
+
+       
+
+        String creaClienteSql = "INSERT into client (nom, correu, telef, carrer, targeta) "
+                + "VALUES ('"+nombre+"','"+email+"', '"+telef+"',  '"+direcion+"', '"+tarjeta+"' )";
+        
+        try {
+            clienteID= DatabaseManager.executeUpdate(creaClienteSql);
+        } catch (SQLException ex) {
+            LoggerManager.getLog().error(ex.toString());
+                   
+        }
+
+            return clienteID;
+
+        }
+
+    
+
+    private OrdenCliente creaOrden(CarritoCompra carritoCompra, int clienteID) {
+        
+        OrdenCliente ordenCliente= null;
+        Random random= new Random();
+        int numeroConfirmacion= random.nextInt(9999991);
+        String stringClienteID= String.valueOf(clienteID);
+        int ordenID=0;
+        
+         String creaOrdenSql = "INSERT into ordre_client (preu_total, confirm_id, client_dni) "
+                + "VALUES ("+carritoCompra.getTotal()+","+numeroConfirmacion+", '"+stringClienteID+"')";
+        
+        try {
+            ordenID= DatabaseManager.executeUpdate(creaOrdenSql);
+        } catch (SQLException ex) {
+            LoggerManager.getLog().error(ex.toString());
+                   
+        }
+        ordenCliente= new OrdenCliente(ordenID, numeroConfirmacion);
+        return ordenCliente;
+        
+        
+        
+    }
+
+    private void creaProductoOrden(CarritoCompra carritoCompra, int id) {
+       String stringID= null;
+       String stringCantidad= null;
+        String ordenProductoSql= "INSERT into producte_has_ordre_client (producte_id,ordre_client_id,cantidad)"
+                + "VALUES (PRODUCTOID, "+id+", CANTIDAD)";
+        stringID= Integer.toString(id);
+        
+        
+        for(int i=0; i<carritoCompra.getListaCarrito().size(); i++){
+          stringCantidad= Integer.toString(carritoCompra.getListaCarrito().get(i).getCantidad());
+        if(id== carritoCompra.getListaCarrito().get(i).getProduct().getId()){
+           ordenProductoSql= ordenProductoSql.replaceAll("PRODUCTOID", stringID);
+        ordenProductoSql= ordenProductoSql.replaceAll("CANTIDAD", stringCantidad);
+        }
+    }
     }
 
 }

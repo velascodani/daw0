@@ -91,17 +91,17 @@
             <tr>
                 <td>Subtotal:</td>
                 <td class="checkoutPriceColumn">
-                    &euro; [subtotale carrito de la compra]</td>
+                    ${carritoCompra.subTotal} &euro; </td>
             </tr>
             <tr>
                 <td>Gastos envios:</td>
                 <td class="checkoutPriceColumn">
-                    &euro; [gastos de spedicion] </td>
+                    ${initParam.gastos} &euro; </td>
             </tr>
             <tr>
                 <td class="total">Total:</td>
                 <td class="total checkoutPriceColumn">
-                    &euro; [total ]</td>
+                    ${carritoCompra.subTotal+initParam.gastos} &euro; </td>
             </tr>
         </table>
     </div>

@@ -15,11 +15,14 @@ import java.util.ArrayList;
 public class CarritoCompra {
 
     private int numeroProductos;
- private double subTotal;
+    private double subTotal;
     private double total;
     private ArrayList<ProductoCarritoCompra> listaCarrito;
+    private double gastosEnvio;
+    
 
-    public CarritoCompra() {
+    public CarritoCompra(int gastos) {
+        this.gastosEnvio= gastos;
         listaCarrito = new ArrayList<ProductoCarritoCompra>();
     }
 
@@ -41,20 +44,24 @@ public class CarritoCompra {
         numeroProductos++;
     }
 
-    
-    public double getSubTotal(){
-        int unidades=0;
-       double precio= 0;
-        double subTotal=0;
+    public double getSubTotal() {
+        int unidades = 0;
+        double precio = 0;
+        double subTotal = 0;
+        double antonio=0;
+
         for (int i = 0; i < listaCarrito.size(); i++) {
-         unidades= listaCarrito.get(i).getCantidad();
-         precio= listaCarrito.get(i).getProduct().getPrecio();
-         subTotal+= unidades*precio;
-     }           
+            unidades = listaCarrito.get(i).getCantidad();
+            precio = listaCarrito.get(i).getProduct().getPrecio();
+            
+            antonio= Math.round(unidades*precio*100);
+            antonio= antonio/100;
+            subTotal += antonio;
+
+        }
+      
         return subTotal;
-}
-    
-   
+    }
 
     public ArrayList<ProductoCarritoCompra> getListaCarrito() {
         return listaCarrito;
@@ -92,24 +99,30 @@ public class CarritoCompra {
                     listaCarrito.get(i).setCantidad(cantidad);
                 }
 
-                
-            
-            if (indexProducto != -1) {
-                listaCarrito.remove(indexProducto);
-            }
+                if (indexProducto != -1) {
+                    listaCarrito.remove(indexProducto);
+                }
             }
 
-           //ProductoCarritoCompra productoCarritoCompra = listaCarrito.get(indexProducto);
+            //ProductoCarritoCompra productoCarritoCompra = listaCarrito.get(indexProducto);
             //productoInicial = productoCarritoCompra.getCantidad();
-             //TODO completar  esto
+            //TODO completar  esto
         }
     }
 
     public void calculaTotal(String gastosEnvio) {
+        
+         gastosEnvio = "6";
+         
+        
+        
     }
 
     public double getTotal() {
-        return 0;
+        
+     
+        
+        return getSubTotal()+gastosEnvio;
     }
 
     public int getNumeroProductos() {

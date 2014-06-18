@@ -48,7 +48,11 @@ public class ProductoCarritoCompra {
     }
     
     public double getPrecioProducto(){
-        return 0;
+        double precio=0;
+        precio= this.cantidad*this.product.getPrecio();
+        precio= Math.round(precio*100);
+        precio= precio/100;
+        return precio;
 }
     
     public String toString(){
