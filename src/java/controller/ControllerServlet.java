@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,16 +37,18 @@ public class ControllerServlet extends HttpServlet {
 
     private ArrayList<Categoria> categoriaList;
     private int gastos;
+    
+    
 
 // 21/05/14 - Modiﬁcar el ControllerServlet perquè implemenf el mètode init i 
 //inifalitzi el preﬁx del LoggerManager amb la ruta de l’aplicació     
     //21/05/14- Añadimos Init para crear categorias
     @Override
-    public void init() throws ServletException {
-        super.init();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         String prefix = getServletContext().getRealPath("/");
         LoggerManager.prefix = prefix;
-       gastos=  Integer.parseInt (getServletConfig().getInitParameter("gastos"));
+       gastos=  Integer.parseInt (config.getServletContext().getInitParameter("gastos"));
 
         /*28.05.14
          - Llamada a la función  Crear Categorías y guardar la lista en la sesión
